@@ -41,6 +41,7 @@ nix_tests = \
   build.sh \
   compute-levels.sh \
   ca/build.sh \
+  ca/signatures.sh \
   ca/nix-copy.sh
   # parallel.sh
 
