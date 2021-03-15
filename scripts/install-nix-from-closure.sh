@@ -29,6 +29,13 @@ if [ "$(uname -s)" = "Darwin" ]; then
     IFS='.' read macos_major macos_minor macos_patch << EOF
 $(sw_vers -productVersion)
 EOF
+
+    # On macOS < 10.15, /usr/sbin/ is not included in the default PATH
+    # (which is where the `diskutil` command lives.)
+    if ! [ $(command -v diskutil &> /dev/null) ]; then 
+        PATH="$PATH:/usr/sbin/"
+    fi
+
     # TODO: this is a temporary speed-bump to keep people from naively installing Nix
     # on macOS Big Sur (11.0+, 10.16+) until nixpkgs updates are ready for them.
     # *Ideally* this is gone before next Nix release. If you're intentionally working on
